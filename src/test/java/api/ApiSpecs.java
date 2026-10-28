@@ -1,5 +1,6 @@
 package api;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 
@@ -16,6 +17,9 @@ public class ApiSpecs {
                 // Accept header is anything other than exactly "application/json".
                 // REST Assured's setAccept(ContentType.JSON) sends a longer list and fails.
                 .addHeader("Accept", "application/json")
+                // Attaches each request and response to the Allure report, so a failed
+                // test shows exactly what was sent and what came back.
+                .addFilter(new AllureRestAssured())
                 .build();
     }
 }
