@@ -10,24 +10,31 @@ Java API test automation framework for [Restful-Booker](https://restful-booker.h
 - JUnit 5 (test runner)
 - REST Assured (API requests and assertions)
 - Jackson (JSON to Java objects)
+- Cucumber (BDD scenarios in plain English)
 - GitHub Actions (CI)
 
-## What is covered (12 tests)
+## What is covered (12 JUnit tests and 4 Cucumber scenarios)
 
 - **Smoke:** health check and login return the expected responses
 - **Create and read:** a created booking comes back with the saved details and can be fetched by ID
 - **Update and delete:** full update (PUT), partial update (PATCH), and delete followed by a check that the booking is gone
 - **Negative and security:** update or delete without a token, update with an invalid token, a non-existent booking, and a failed login
+- **BDD scenarios:** create and read back, update a price, delete, and a forbidden delete without logging in, written as Given/When/Then in `booking.feature`
 
 Every test creates its own booking and cleans up afterward, because the API is shared and its data can change.
 
 ## Project structure
 
 ```
-src/test/java
-├── api/      request settings, one client class per endpoint group, test data
-├── models/   Java classes for the booking JSON
-└── tests/    the test classes
+src/test
+├── java
+│   ├── api/      request settings, one client class per endpoint group, test data
+│   ├── models/   Java classes for the booking JSON
+│   ├── tests/    the JUnit test classes
+│   ├── steps/    Cucumber step definitions
+│   └── runner/   Cucumber runner (finds the feature files)
+└── resources
+    └── features/ Cucumber feature files
 ```
 
 ## How to run
@@ -47,5 +54,4 @@ Requires Java 17 and Maven.
 
 ## Planned
 
-- Cucumber (BDD) scenarios
 - Allure test reports
