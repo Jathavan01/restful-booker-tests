@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/Jathavan01/restful-booker-tests/actions/workflows/ci.yml/badge.svg)
 
-Java API test automation framework for [Restful-Booker](https://restful-booker.herokuapp.com), a public hotel booking API built for practicing testing. Tests run automatically on every push with GitHub Actions.
+Java API test automation framework for [Restful-Booker](https://restful-booker.herokuapp.com), a public hotel booking API built for practicing testing. Tests run automatically on every push with GitHub Actions, and the latest [Allure test report](https://jathavan01.github.io/restful-booker-tests/) is published to GitHub Pages.
 
 ## Tech stack
 
@@ -12,7 +12,8 @@ Java API test automation framework for [Restful-Booker](https://restful-booker.h
 - JSON Schema Validator (response contract checks)
 - Jackson (JSON to Java objects)
 - Cucumber (BDD scenarios in plain English)
-- GitHub Actions (CI)
+- Allure (test reports with request and response details)
+- GitHub Actions (CI) and GitHub Pages (report hosting)
 
 ## What is covered (14 JUnit tests and 4 Cucumber scenarios)
 
@@ -46,6 +47,8 @@ src/test
 mvn test
 ```
 
+To view the report locally, run `mvn allure:serve` after the tests finish.
+
 Requires Java 17 and Maven.
 
 ## API behaviors found while testing
@@ -57,4 +60,5 @@ Requires Java 17 and Maven.
 
 ## Planned
 
-- Allure test reports
+- WireMock (service virtualization)
+- SQL data validation
