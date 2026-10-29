@@ -13,10 +13,11 @@ Java API test automation framework for [Restful-Booker](https://restful-booker.h
 - Jackson (JSON to Java objects)
 - Cucumber (BDD scenarios in plain English)
 - WireMock (service virtualization)
+- JDBC and H2 (SQL data validation)
 - Allure (test reports with request and response details)
 - GitHub Actions (CI) and GitHub Pages (report hosting)
 
-## What is covered (17 JUnit tests and 4 Cucumber scenarios)
+## What is covered (24 JUnit tests and 4 Cucumber scenarios)
 
 - **Smoke:** health check and login return the expected responses
 - **Create and read:** a created booking comes back with the saved details and can be fetched by ID
@@ -24,6 +25,7 @@ Java API test automation framework for [Restful-Booker](https://restful-booker.h
 - **Negative and security:** update or delete without a token, update with an invalid token, a non-existent booking, and a failed login
 - **Contract tests:** create and get responses are checked against JSON schemas for required fields and data types
 - **Service virtualization:** WireMock simulates the booking service to test a lookup client's handling of a normal response, a 404, and a 503 followed by a successful retry
+- **SQL data validation:** bookings read from the API are loaded into an in-memory H2 table with JDBC, then checked with SQL for matching row counts and totals, nulls, duplicates, invalid date ranges, and a field-by-field match with the source. One test confirms the date check catches deliberately bad data.
 - **BDD scenarios:** create and read back, update a price, delete, and a forbidden delete without logging in, written as Given/When/Then in `booking.feature`
 
 Every test against the live API creates its own booking and cleans up afterward, because the API is shared and its data can change.
@@ -34,6 +36,7 @@ Every test against the live API creates its own booking and cleans up afterward,
 src/test
 ├── java
 │   ├── api/      request settings, endpoint clients, test data, lookup client
+│   ├── db/       H2 table and JDBC helper for the data validation tests
 │   ├── models/   Java classes for the booking JSON
 │   ├── tests/    the JUnit test classes
 │   ├── steps/    Cucumber step definitions
@@ -59,7 +62,3 @@ Requires Java 17 and Maven.
 - A successful `DELETE` returns 201
 - A failed login returns 200 with a "Bad credentials" message instead of an error status
 - Requests are rejected with 418 unless the `Accept` header is exactly `application/json`
-
-## Planned
-
-- SQL data validation
